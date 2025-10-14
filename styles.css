@@ -1,0 +1,347 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #000000;
+    color: #ffffff;
+    min-height: 100vh;
+    line-height: 1.5;
+}
+
+/* Dot pattern background */
+.dot-pattern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+    background-size: 24px 24px;
+    opacity: 0.02;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Container */
+.container {
+    position: relative;
+    z-index: 10;
+    max-width: 80rem; /* 5xl */
+    margin: 0 auto;
+    padding: 5rem 3rem;
+}
+
+/* Header */
+.header {
+    margin-bottom: 5rem;
+}
+
+.name {
+    font-size: 3rem;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1;
+    color: #ffffff;
+}
+
+/* Navigation */
+.navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.025em;
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.nav-link:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Dropdown styles */
+.dropdown-container {
+    position: relative;
+}
+
+.dropdown-arrow {
+    transition: transform 0.3s ease;
+    opacity: 0.6;
+}
+
+.dropdown-container:hover .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 1rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    background-color: rgba(10, 10, 10, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.75rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(24px);
+    min-width: 240px;
+    z-index: 20;
+}
+
+.dropdown-container:hover .dropdown {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dropdown-content {
+    padding: 0.75rem 0;
+}
+
+.dropdown-item {
+    padding: 0.75rem 1.25rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+/* Writing carousel */
+.writing-button {
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.025em;
+    color: #ffffff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.writing-button:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.writing-carousel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.7s ease-out;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.writing-carousel.open {
+    max-height: 500px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.carousel-content {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 2rem;
+    backdrop-filter: blur(24px);
+}
+
+.carousel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.carousel-nav {
+    padding: 0.75rem;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    border-radius: 0.75rem;
+    transition: all 0.2s ease;
+    font-size: 1.5rem;
+}
+
+.carousel-nav:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.carousel-text {
+    flex: 1;
+    text-align: center;
+    padding: 0 2rem;
+}
+
+.carousel-text h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    line-height: 1.625;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+}
+
+.carousel-text p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* Responsive design */
+@media (min-width: 768px) {
+    .name {
+        font-size: 3.75rem;
+    }
+}
+
+/* Page transitions */
+.page-transition {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.page-transition.loaded {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Back link */
+.back-link {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 0.025em;
+    transition: color 0.3s ease;
+}
+
+.back-link:hover {
+    color: #ffffff;
+}
+
+/* Page content */
+.content {
+    max-width: 64rem; /* 4xl */
+}
+
+.page-title {
+    font-size: 3rem;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1;
+    color: #ffffff;
+    margin-bottom: 2rem;
+}
+
+.page-description {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.25rem;
+    line-height: 1.625;
+    font-weight: 300;
+    max-width: 64rem;
+    margin-bottom: 4rem;
+}
+
+.content-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 64rem;
+}
+
+.content-section {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 3rem;
+}
+
+.content-section:last-child {
+    border-bottom: none;
+}
+
+.section-title {
+    font-size: 1.875rem;
+    font-weight: 500;
+    letter-spacing: 0.025em;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+}
+
+.section-text {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.25rem;
+    line-height: 1.625;
+    font-weight: 300;
+}
+
+.last-updated {
+    padding-top: 3rem;
+    text-align: center;
+}
+
+.last-updated p {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* Inventions page */
+.page-intro {
+    margin-bottom: 4rem;
+}
+
+.inventions-list {
+    margin-bottom: 3rem;
+}
+
+.no-inventions {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.25rem;
+}
+
+.footer-note {
+    padding-top: 3rem;
+    text-align: center;
+}
+
+.footer-note p {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* Responsive design for pages */
+@media (min-width: 768px) {
+    .page-title {
+        font-size: 3.75rem;
+    }
+}
