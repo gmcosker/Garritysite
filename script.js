@@ -1,5 +1,37 @@
 // Simple interactive functionality
 document.addEventListener('DOMContentLoaded', function() {
+    // Projects dropdown functionality
+    const projectsContainer = document.querySelector('.dropdown-container');
+    const projectsLink = document.getElementById('projects-link');
+    const projectsDropdown = document.getElementById('projects-dropdown');
+    let closeTimeout;
+    
+    // Open dropdown on hover
+    projectsContainer.addEventListener('mouseenter', function() {
+        clearTimeout(closeTimeout);
+        projectsContainer.classList.add('open');
+    });
+    
+    // Delay closing when leaving the container
+    projectsContainer.addEventListener('mouseleave', function() {
+        closeTimeout = setTimeout(function() {
+            projectsContainer.classList.remove('open');
+        }, 300); // 300ms delay before closing
+    });
+    
+    // Keep dropdown open when hovering over the dropdown itself
+    projectsDropdown.addEventListener('mouseenter', function() {
+        clearTimeout(closeTimeout);
+        projectsContainer.classList.add('open');
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!projectsContainer.contains(e.target)) {
+            projectsContainer.classList.remove('open');
+        }
+    });
+
     // Writing carousel toggle
     const writingButton = document.getElementById('writing-button');
     const writingCarousel = document.getElementById('writing-carousel');
