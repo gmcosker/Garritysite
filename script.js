@@ -3,11 +3,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Projects dropdown functionality
     const projectsContainer = document.querySelector('.dropdown-container');
     const projectsLink = document.getElementById('projects-link');
+    const projectsText = document.getElementById('projects-text');
     const projectsDropdown = document.getElementById('projects-dropdown');
     let closeTimeout;
     
-    // Open dropdown on hover
-    projectsContainer.addEventListener('mouseenter', function() {
+    // Open dropdown on hover over the Projects text only
+    projectsText.addEventListener('mouseenter', function() {
         clearTimeout(closeTimeout);
         projectsContainer.classList.add('open');
     });

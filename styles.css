@@ -80,6 +80,13 @@ body {
     color: rgba(255, 255, 255, 0.8);
 }
 
+/* Make projects link hover area extremely tight - only the text itself */
+#projects-link {
+    padding: 0;
+    margin: 0;
+    display: inline;
+}
+
 /* Dropdown styles */
 .dropdown-container {
     position: relative;
