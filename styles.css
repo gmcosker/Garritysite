@@ -357,12 +357,68 @@ body {
 
 .inventions-list {
     margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
 }
 
 .no-inventions {
     text-align: center;
     color: rgba(255, 255, 255, 0.6);
     font-size: 1.25rem;
+}
+
+.invention-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 3rem;
+}
+
+.invention-item:last-child {
+    border-bottom: none;
+}
+
+.invention-title {
+    font-size: 1.875rem;
+    font-weight: 500;
+    letter-spacing: 0.025em;
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.invention-category {
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.invention-date {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+}
+
+.invention-image {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    border-radius: 0.75rem;
+    margin-bottom: 1.5rem;
+    display: block;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.invention-description {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.25rem;
+    line-height: 1.625;
+    font-weight: 300;
 }
 
 .footer-note {
