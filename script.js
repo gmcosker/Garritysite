@@ -7,31 +7,34 @@ document.addEventListener('DOMContentLoaded', function() {
     const projectsDropdown = document.getElementById('projects-dropdown');
     let closeTimeout;
     
-    // Open dropdown on hover over the Projects text only
-    projectsText.addEventListener('mouseenter', function() {
-        clearTimeout(closeTimeout);
-        projectsContainer.classList.add('open');
-    });
-    
-    // Delay closing when leaving the container
-    projectsContainer.addEventListener('mouseleave', function() {
-        closeTimeout = setTimeout(function() {
-            projectsContainer.classList.remove('open');
-        }, 300); // 300ms delay before closing
-    });
-    
-    // Keep dropdown open when hovering over the dropdown itself
-    projectsDropdown.addEventListener('mouseenter', function() {
-        clearTimeout(closeTimeout);
-        projectsContainer.classList.add('open');
-    });
-    
-    // Close dropdown when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!projectsContainer.contains(e.target)) {
-            projectsContainer.classList.remove('open');
-        }
-    });
+    // Only set up projects dropdown if elements exist (index page only)
+    if (projectsText && projectsContainer && projectsDropdown) {
+        // Open dropdown on hover over the Projects text only
+        projectsText.addEventListener('mouseenter', function() {
+            clearTimeout(closeTimeout);
+            projectsContainer.classList.add('open');
+        });
+        
+        // Delay closing when leaving the container
+        projectsContainer.addEventListener('mouseleave', function() {
+            closeTimeout = setTimeout(function() {
+                projectsContainer.classList.remove('open');
+            }, 300); // 300ms delay before closing
+        });
+        
+        // Keep dropdown open when hovering over the dropdown itself
+        projectsDropdown.addEventListener('mouseenter', function() {
+            clearTimeout(closeTimeout);
+            projectsContainer.classList.add('open');
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!projectsContainer.contains(e.target)) {
+                projectsContainer.classList.remove('open');
+            }
+        });
+    }
 
     // Writing carousel functionality
     const writingButton = document.getElementById('writing-button');
@@ -64,68 +67,123 @@ document.addEventListener('DOMContentLoaded', function() {
     
     let currentPostIndex = 0;
     
-    // Function to render current post
-    function renderPost() {
-        if (writingPosts.length === 0) {
+    // Only set up writing carousel if elements exist (index page only)
+    if (writingButton && writingCarousel && carouselContent) {
+        // Function to render current post
+        function renderPost() {
+            if (writingPosts.length === 0) {
+                carouselContent.innerHTML = `
+                    <div class="carousel-item">
+                        <div class="carousel-header">
+                            <button class="carousel-nav" id="prev-writing" style="visibility: hidden;">←</button>
+                            <div class="carousel-text">
+                                <h3>No writing posts yet</h3>
+                                <p>Add posts in script.js</p>
+                            </div>
+                            <button class="carousel-nav" id="next-writing" style="visibility: hidden;">→</button>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            
+            const post = writingPosts[currentPostIndex];
+            const postHTML = post.link 
+                ? `<a href="${post.link}" target="_blank" style="text-decoration: none; color: inherit;">${post.title}</a>`
+                : post.title;
+            
             carouselContent.innerHTML = `
                 <div class="carousel-item">
                     <div class="carousel-header">
-                        <button class="carousel-nav" id="prev-writing" style="visibility: hidden;">←</button>
+                        <button class="carousel-nav" id="prev-writing">←</button>
                         <div class="carousel-text">
-                            <h3>No writing posts yet</h3>
-                            <p>Add posts in script.js</p>
+                            <h3>${postHTML}</h3>
+                            ${post.date ? `<p>${post.date}</p>` : ''}
+                            ${post.excerpt ? `<p style="margin-top: 0.5rem; font-size: 0.9rem;">${post.excerpt}</p>` : ''}
                         </div>
-                        <button class="carousel-nav" id="next-writing" style="visibility: hidden;">→</button>
+                        <button class="carousel-nav" id="next-writing">→</button>
                     </div>
+                </div>
+            `;
+            
+            // Re-attach event listeners
+            document.getElementById('prev-writing').addEventListener('click', showPreviousPost);
+            document.getElementById('next-writing').addEventListener('click', showNextPost);
+        }
+        
+        // Navigation functions
+        function showNextPost() {
+            if (writingPosts.length === 0) return;
+            currentPostIndex = (currentPostIndex + 1) % writingPosts.length;
+            renderPost();
+        }
+        
+        function showPreviousPost() {
+            if (writingPosts.length === 0) return;
+            currentPostIndex = (currentPostIndex - 1 + writingPosts.length) % writingPosts.length;
+            renderPost();
+        }
+        
+        // Toggle carousel
+        writingButton.addEventListener('click', function() {
+            writingCarousel.classList.toggle('open');
+        });
+        
+        // Initialize carousel
+        renderPost();
+    }
+
+    // ============================================
+    // INVENTIONS - ADD YOUR INVENTIONS HERE
+    // ============================================
+    // To add a new invention, copy this format and fill it in:
+    // {
+    //     title: "Invention Name",
+    //     description: "Detailed description of the invention and the problem it solves...",
+    //     date: "January 15, 2024",  // Optional
+    //     category: "Technology",  // Optional
+    //     image: "images/invention-photo.jpg"  // Optional: path to image file (appears at bottom of post)
+    // },
+    //
+    // Example:
+    const inventions = [
+         {
+            title: "Roof Sprinkler",
+             description: "A kit of mostly available and modified smaller inventions that can deliver water spraying from your roof, to the entire perimeter of your house, keeping all the natural fuel that surrounds your house, when fire is on its way to your house. ",
+             date: "First thought of this Jan of 25, when the fires were ripping through CA. Still thinking about it now, in December of 25.",
+            category: "Home Protection",
+            image: "images/roof-sprinkler.jpg"  // Add your image file path here
+        },
+    
+    ];
+
+    // Render inventions on inventions page
+    function renderInventions() {
+        const inventionsList = document.querySelector('.inventions-list');
+        if (!inventionsList) return; // Only run on inventions page
+        
+        if (inventions.length === 0) {
+            inventionsList.innerHTML = `
+                <div class="no-inventions">
+                    <p>No inventions yet</p>
                 </div>
             `;
             return;
         }
         
-        const post = writingPosts[currentPostIndex];
-        const postHTML = post.link 
-            ? `<a href="${post.link}" target="_blank" style="text-decoration: none; color: inherit;">${post.title}</a>`
-            : post.title;
-        
-        carouselContent.innerHTML = `
-            <div class="carousel-item">
-                <div class="carousel-header">
-                    <button class="carousel-nav" id="prev-writing">←</button>
-                    <div class="carousel-text">
-                        <h3>${postHTML}</h3>
-                        ${post.date ? `<p>${post.date}</p>` : ''}
-                        ${post.excerpt ? `<p style="margin-top: 0.5rem; font-size: 0.9rem;">${post.excerpt}</p>` : ''}
-                    </div>
-                    <button class="carousel-nav" id="next-writing">→</button>
-                </div>
+        inventionsList.innerHTML = inventions.map(invention => `
+            <div class="invention-item">
+                <h2 class="invention-title">${invention.title}</h2>
+                ${invention.category ? `<span class="invention-category">${invention.category}</span>` : ''}
+                ${invention.date ? `<p class="invention-date">${invention.date}</p>` : ''}
+                <p class="invention-description">${invention.description}</p>
+                ${invention.image ? `<img src="${invention.image}" alt="${invention.title}" class="invention-image">` : ''}
             </div>
-        `;
-        
-        // Re-attach event listeners
-        document.getElementById('prev-writing').addEventListener('click', showPreviousPost);
-        document.getElementById('next-writing').addEventListener('click', showNextPost);
+        `).join('');
     }
     
-    // Navigation functions
-    function showNextPost() {
-        if (writingPosts.length === 0) return;
-        currentPostIndex = (currentPostIndex + 1) % writingPosts.length;
-        renderPost();
-    }
-    
-    function showPreviousPost() {
-        if (writingPosts.length === 0) return;
-        currentPostIndex = (currentPostIndex - 1 + writingPosts.length) % writingPosts.length;
-        renderPost();
-    }
-    
-    // Toggle carousel
-    writingButton.addEventListener('click', function() {
-        writingCarousel.classList.toggle('open');
-    });
-    
-    // Initialize carousel
-    renderPost();
+    // Initialize inventions
+    renderInventions();
 
     // Smooth page transitions
     const container = document.querySelector('.container');
